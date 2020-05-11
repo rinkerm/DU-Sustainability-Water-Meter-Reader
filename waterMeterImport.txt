@@ -1,0 +1,37 @@
+function addData() {
+
+  const email = "-redacted-";
+  const key = "-redacted-";
+  const projectId = "-redacted-";
+  var firestore = FirestoreApp.getFirestore (email, key, projectId);
+   
+  
+  //get document data from spreadsheet
+  
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheetname = "Form Responses 1";
+  var sheet = ss.getSheetByName(sheetname);
+  
+  //define range with columns
+  var sheetR = sheet.getLastRow();
+  var sheetC = sheet.getLastColumn();
+  
+  var dataR = 2; //first row of Data
+  
+  var sourceRange = sheet.getRange(2,1,sheetR-dataR+1,sheetC);
+  
+  var sourceData = sourceRange.getValues();
+  
+  var rowIndex = sheetR-2; //last row index
+  if(sourceData[rowIndex][1] !== ''){ //ensure its not empty
+    var data ={};
+    var date1 = sourceData[rowIndex][0].toString().slice(0,24);
+    var date2 = new Date(date1);
+    var stringfiedDate = JSON.stringify(date2);
+    var date3 = stringfiedDate.slice(1,11).concat('-',stringfiedDate.slice(15,17)); //format timestamp into a useable date
+    data.timestamp = date3;
+    data.Device = sourceData[rowIndex][1];
+    data.Gallons = sourceData[rowIndex][2];
+    }
+  firestore.createDocument("Realtime",data); //add a new entry into the database with the data
+}
