@@ -1,7 +1,7 @@
 function addData() {
-  const email = "zeta-cortex-188019@appspot.gserviceaccount.com";
-  const key = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCemjeB2ydvq3m3\nVKJ9k1sDcT6h18uqeA9t14Jh7mOfsS5d0uRPEJEDNTcUeoUbkzwWRYX7i8MBzCoh\nkNjFyxnnQQO96bVV7FoS7SUUIOyKsRERtVAp6BfbzeenRKU3r77ckZ+VkU3xxHu1\nATMu3GctXnkJhgtt+ApXdSHxzmeakb37GtvrgxFJkueVKAZII9ZAfbjrnLk1kBZs\nB97YbIB8KtrhLNwBwLaCP5ERb3PUJA4zkXE53cP7QgQyYRE7POVCwkbl2JyHAoW2\n7WFUcnkXSaDQVk6PlrJGE1Sw6Idr01SQP6HV6+TBMrgAxREE9xn8gduOzZdC3g8V\ngl5VcC0ZAgMBAAECggEACE/Hqef8xJblbYyjaVZQFjmYkS24cCoTkOuS2yP9l5BX\nADa9nUEegF8JEGstT5kjNH2XPGwCH7V93b10BsWSiXJ4SjsVtDeLLuO7pjblfo0x\n+k4YseGGYpADXFo2GFl+9JszFEkFny5vVziFYKbPR2rkh/G85pnxnMy4Jy5scoas\nnxghSu48jEy4mCT7fHZ4+djh2D4QkzWx6TDrGrOgsJcSqpzW9Y7CK/V1MBwD3TAl\nyDbEeyTLUvthPUiF+h7PZ7GZXcgcAgCpkJ2kvDiLdPdhKi97r48a/N5+Euqxt0Ap\nYm10vVKH/Pb1qqCqSwzcZgu+t8uxgRrySZ5THRETAQKBgQDQKxKdur0/RZ8Mux5y\nIF5NSWzyckxPmHveqFNVjp8YQTOiC+o7qGLOFaPSLhGB0E3E2JGUSbNeW4tWzEVK\nAEi1OyVr4VRBvcuQP36R0YoZ1Nzahr4kWog/9gyZa4RTbSXOPUjh/1mhTgxXPM/c\nKss+Tk//pErzOZr/r+jPFO+5QQKBgQDDC5Gy8w2jnOvZmDb/8Oo2UO5vs97LFqrP\n+qb8VBJAOX4dwxKU1zUn6gu6TI/Zs1XcNIjGP32VYct09iuiqKbtZIYUa63ZwLRm\noaSZx5xUj/5f1JiosdkmBmv1RKnPvuHzs50uBYKM1SI7Oqv6n0ZluzppRh+07xpV\nTvghd0Xl2QKBgQC3e0+kUSVfcJk5GnFCfL9B9hceN5qFicycu9cAEX6vXUEKcuAZ\nh1jXdwF3T33E4vq5J35hqvh7kcrmTZRBHrD3dNOOHAUtEQIs+ZoxIvVLwXCM+Lj9\nyAJSBiiizb7L3ee1uhTUhkLVR7re5c38rIeKOnKOzJv3eG3jMoTMihKmQQKBgBlV\n6mIlYlMrchN8y0ApyjKuBprp8XnOAvgrJf/G5+wBy9kP2t0Mq3H42/ciNNlhizik\ndlPSMXzzDBuwUnC5mZ1inmwOpLGRb52ZR6lWHX96iN9n3UCkgYGH+gQNHEXJFM60\nOSmeO5wRn3W0JFzUza8vR+Ie4sV8/Z2xOVgXhzPZAoGAF/xigJ+hZwJ3d688gXAX\n8s0JMSLGb+4KANRtH/9qgrRawbXh/PmeWjXXix8LKrkkzPlX846EY8B7genlRjAL\nvaCSv/O2TEn/1eXgbipxcYlJqrPrOXiybRWgiy46n6IhCspNQL8oK0Ok+/uh68bS\nk/jbG3Gz82LDx/SFrgAS/Z8=\n-----END PRIVATE KEY-----\n";
-  const projectId = "zeta-cortex-188019";
+  const email = "-redacted-";
+  const key = "-redacted-";
+  const projectId = "-redacted-";
   var firestore = FirestoreApp.getFirestore (email, key, projectId);
    
   //setup Data storage
