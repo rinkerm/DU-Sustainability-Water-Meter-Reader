@@ -1,0 +1,75 @@
+function addData() {
+  const email = "zeta-cortex-188019@appspot.gserviceaccount.com";
+  const key = "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCemjeB2ydvq3m3\nVKJ9k1sDcT6h18uqeA9t14Jh7mOfsS5d0uRPEJEDNTcUeoUbkzwWRYX7i8MBzCoh\nkNjFyxnnQQO96bVV7FoS7SUUIOyKsRERtVAp6BfbzeenRKU3r77ckZ+VkU3xxHu1\nATMu3GctXnkJhgtt+ApXdSHxzmeakb37GtvrgxFJkueVKAZII9ZAfbjrnLk1kBZs\nB97YbIB8KtrhLNwBwLaCP5ERb3PUJA4zkXE53cP7QgQyYRE7POVCwkbl2JyHAoW2\n7WFUcnkXSaDQVk6PlrJGE1Sw6Idr01SQP6HV6+TBMrgAxREE9xn8gduOzZdC3g8V\ngl5VcC0ZAgMBAAECggEACE/Hqef8xJblbYyjaVZQFjmYkS24cCoTkOuS2yP9l5BX\nADa9nUEegF8JEGstT5kjNH2XPGwCH7V93b10BsWSiXJ4SjsVtDeLLuO7pjblfo0x\n+k4YseGGYpADXFo2GFl+9JszFEkFny5vVziFYKbPR2rkh/G85pnxnMy4Jy5scoas\nnxghSu48jEy4mCT7fHZ4+djh2D4QkzWx6TDrGrOgsJcSqpzW9Y7CK/V1MBwD3TAl\nyDbEeyTLUvthPUiF+h7PZ7GZXcgcAgCpkJ2kvDiLdPdhKi97r48a/N5+Euqxt0Ap\nYm10vVKH/Pb1qqCqSwzcZgu+t8uxgRrySZ5THRETAQKBgQDQKxKdur0/RZ8Mux5y\nIF5NSWzyckxPmHveqFNVjp8YQTOiC+o7qGLOFaPSLhGB0E3E2JGUSbNeW4tWzEVK\nAEi1OyVr4VRBvcuQP36R0YoZ1Nzahr4kWog/9gyZa4RTbSXOPUjh/1mhTgxXPM/c\nKss+Tk//pErzOZr/r+jPFO+5QQKBgQDDC5Gy8w2jnOvZmDb/8Oo2UO5vs97LFqrP\n+qb8VBJAOX4dwxKU1zUn6gu6TI/Zs1XcNIjGP32VYct09iuiqKbtZIYUa63ZwLRm\noaSZx5xUj/5f1JiosdkmBmv1RKnPvuHzs50uBYKM1SI7Oqv6n0ZluzppRh+07xpV\nTvghd0Xl2QKBgQC3e0+kUSVfcJk5GnFCfL9B9hceN5qFicycu9cAEX6vXUEKcuAZ\nh1jXdwF3T33E4vq5J35hqvh7kcrmTZRBHrD3dNOOHAUtEQIs+ZoxIvVLwXCM+Lj9\nyAJSBiiizb7L3ee1uhTUhkLVR7re5c38rIeKOnKOzJv3eG3jMoTMihKmQQKBgBlV\n6mIlYlMrchN8y0ApyjKuBprp8XnOAvgrJf/G5+wBy9kP2t0Mq3H42/ciNNlhizik\ndlPSMXzzDBuwUnC5mZ1inmwOpLGRb52ZR6lWHX96iN9n3UCkgYGH+gQNHEXJFM60\nOSmeO5wRn3W0JFzUza8vR+Ie4sV8/Z2xOVgXhzPZAoGAF/xigJ+hZwJ3d688gXAX\n8s0JMSLGb+4KANRtH/9qgrRawbXh/PmeWjXXix8LKrkkzPlX846EY8B7genlRjAL\nvaCSv/O2TEn/1eXgbipxcYlJqrPrOXiybRWgiy46n6IhCspNQL8oK0Ok+/uh68bS\nk/jbG3Gz82LDx/SFrgAS/Z8=\n-----END PRIVATE KEY-----\n";
+  const projectId = "zeta-cortex-188019";
+  var firestore = FirestoreApp.getFirestore (email, key, projectId);
+   
+  //setup Data storage
+  var dataheaders = ["Building","ServiceDate","Usage","BilledAmount"]
+  var data = {"Water (Gal)":{},"Gas (Mcf)":{}, "Electric (kWh)":{}}
+  for(var i=0;i<4;i++){
+    data["Water (Gal)"][dataheaders[i]]=[];
+    data["Gas (Mcf)"][dataheaders[i]]=[];
+    data["Electric (kWh)"][dataheaders[i]]=[];
+  }
+  
+  //get document data from spreadsheet
+  
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheetname = "Form Responses 1";
+  var sheet = ss.getSheetByName(sheetname);
+  
+  //define range with columns
+  var sheetR = sheet.getLastRow();
+  var sheetC = sheet.getLastColumn();
+  
+  var dataR = 2; //first row of Data
+  
+  var sourceRange = sheet.getRange(2,1,sheetR-dataR+1,sheetC);
+  
+  var sourceData = sourceRange.getValues();
+  
+  var sourceL = sourceData.length;
+ 
+  for (var i=0;i < sourceL;i++){ //Loop through all datarows (This allows for users to go back and correct incorrect input and resubmit)
+    if(sourceData[i][1] !== ''){
+      
+      var date = sourceData[i][3].toString()
+      date = date.concat(+", ");
+      date = date.concat(sourceData[i][4].toString());
+      var stDate = new Date(date);
+      var stringfiedSt = JSON.stringify(stDate);
+      var updatedDtSt = stringfiedSt.slice(1,8);
+      var service = sourceData[i][5].toString();
+      data[service].Building[i] = sourceData[i][2]; 
+      data[service].ServiceDate[i] = updatedDtSt; 
+      data[service].Usage[i] = sourceData[i][6]; 
+      data[service].BilledAmount[i] = sourceData[i][7];
+
+    }
+  }
+  //Update Water/Responses
+  try{
+    firestore.deleteDocument("Water/Responses",data["Water (Gal)"]);
+  } catch(error){console.log("Error: Can't delete Table 'Water/Responses' (Table Does not Exist)")}
+  try{
+    firestore.createDocument("Water/Responses",data["Water (Gal)"]);
+  }catch(error){console.log("Error: Can't create Table 'Water/Responses' (Table Already Exists")}
+  
+  //Update Gas/Responses
+   try{
+    firestore.deleteDocument("Gas/Responses",data["Gas (Mcf)"]);
+  } catch(error){console.log("Error: Can't delete Table 'Gas/Responses' (Table Does not Exist)")}
+  try{
+    firestore.createDocument("Gas/Responses",data["Gas (Mcf)"]);
+  }catch(error){console.log("Error: Can't create Table 'Gas/Responses' (Table Already Exists")}
+  
+  //Update Electric/Responses
+   try{
+    firestore.deleteDocument("Electric/Responses",data["Electric (kWh)"]);
+  } catch(error){console.log("Error: Can't delete Table 'Electric/Responses' (Table Does not Exist)")}
+  try{
+    firestore.createDocument("Electric/Responses",data["Electric (kWh)"]);
+  }catch(error){console.log("Error: Can't create Table 'Electric/Responses' (Table Already Exists")}  
+
+}
